@@ -6,7 +6,7 @@ import org.jetbrains.exposed.sql.ReferenceOption
 // 1. Tabela de Oficinas
 object OficinasTable : UUIDTable("oficinas") {
     val nome = varchar("nome", 150)
-    val cnpjOuCpf = varchar("cnpj_cpf", 20).uniqueIndex()
+    val cnpj = varchar("cnpj", 20).uniqueIndex()
     val telefone = varchar("telefone", 20)
     val email = varchar("email", 100).uniqueIndex()
 }
