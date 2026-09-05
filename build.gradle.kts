@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(ktorLibs.plugins.ktor)
+    kotlin("plugin.serialization") version "2.0.21"
 }
 
 group = "com.mecaniq"
@@ -34,6 +35,7 @@ dependencies {
     implementation("com.zaxxer:HikariCP:${hikariVersion}")
     implementation("org.postgresql:postgresql:${postgresVersion}")
     implementation("com.h2database:h2:2.3.232")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:3.0.3")
 
     testImplementation(kotlin("test"))
     testImplementation(ktorLibs.server.testHost)

@@ -1,6 +1,6 @@
 package com.mecaniq
 
-import com.mecaniq.database.DatabaseFactory
+import com.mecaniq.backend.database.DatabaseFactory
 import com.mecaniq.routes.configureRouting
 import io.ktor.server.application.Application
 

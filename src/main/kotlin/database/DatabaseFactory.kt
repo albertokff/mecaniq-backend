@@ -1,9 +1,13 @@
-package com.mecaniq.database
+package com.mecaniq.backend.database
 
+import com.mecaniq.database.ClientesTable
+import com.mecaniq.database.OficinasTable
+import com.mecaniq.database.VeiculosTable
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -22,7 +26,11 @@ object DatabaseFactory {
         val database = Database.connect(dataSource)
 
         transaction(database) {
-            // As tabelas criadas a seguir serão registradas aqui
+            SchemaUtils.create(
+                OficinasTable,
+                ClientesTable,
+                VeiculosTable
+            )
         }
     }
 
