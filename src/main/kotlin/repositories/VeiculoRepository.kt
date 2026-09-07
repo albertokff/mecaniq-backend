@@ -55,4 +55,11 @@ class VeiculoRepository {
         ano = this[VeiculosTable.ano],
         kmAtual = this[VeiculosTable.kmAtual]
     )
+
+    suspend fun buscarPorId(id: String): VeiculoDTO? = dbQuery {
+        VeiculosTable.selectAll()
+            .where { VeiculosTable.id eq UUID.fromString(id) }
+            .map { it.toVeiculoDTO() }
+            .singleOrNull()
+    }
 }

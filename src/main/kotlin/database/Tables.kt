@@ -29,3 +29,32 @@ object VeiculosTable : UUIDTable("veiculos") {
     val ano = integer("ano")
     val kmAtual = integer("km_atual").default(0)
 }
+
+enum class StatusOS {
+    ABERTA,
+    EM_ANDAMENTO,
+    CONCLUIDA,
+    CANCELADA
+}
+
+enum class TipoItem {
+    PECA,
+    SERVICO
+}
+
+object OrdensServicoTable : UUIDTable("ordens_servio") {
+    val oficinaId = reference(name = "oficina_id", foreign = OficinasTable, onDelete = ReferenceOption.CASCADE)
+    val veiculoId = reference(name = "veiculo_id", foreign = VeiculosTable, onDelete = ReferenceOption.RESTRICT)
+    val status = enumerationByName(name = "status", length = 30, StatusOS::class).default(StatusOS.ABERTA)
+    val kmEntrada = integer("km_entrada")
+    val valorTotal = decimal("valor_total", 10, 2).default(java.math.BigDecimal.ZERO)
+    val observacoes = varchar("observacoes", 500).nullable()
+}
+
+object ItensOSTable : UUIDTable("itens_os") {
+    val osId = reference("os_id", OrdensServicoTable, onDelete = ReferenceOption.CASCADE)
+    val descricao = varchar("descricao", 150)
+    val tipo = enumerationByName("tipo", 20, TipoItem::class)
+    val quantidade = integer("quantidade")
+    val precoUnitario = decimal("preco_unitario", 10, 2)
+}

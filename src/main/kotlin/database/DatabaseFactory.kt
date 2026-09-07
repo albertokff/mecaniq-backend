@@ -1,7 +1,9 @@
 package com.mecaniq.backend.database
 
 import com.mecaniq.database.ClientesTable
+import com.mecaniq.database.ItensOSTable
 import com.mecaniq.database.OficinasTable
+import com.mecaniq.database.OrdensServicoTable
 import com.mecaniq.database.VeiculosTable
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
@@ -29,7 +31,9 @@ object DatabaseFactory {
             SchemaUtils.create(
                 OficinasTable,
                 ClientesTable,
-                VeiculosTable
+                VeiculosTable,
+                ItensOSTable,
+                OrdensServicoTable
             )
         }
     }
