@@ -1,11 +1,10 @@
 package com.mecaniq.repositories
 
-import com.mecaniq.backend.database.DatabaseFactory.dbQuery
+import com.mecaniq.database.DatabaseFactory.dbQuery
 import com.mecaniq.database.VeiculosTable
 import com.mecaniq.models.AtualizarKmRequest
 import com.mecaniq.models.CriarVeiculoRequest
 import com.mecaniq.models.VeiculoDTO
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.insertAndGetId
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.update
@@ -27,8 +26,16 @@ class VeiculoRepository {
     }
 
     suspend fun inserir(request: CriarVeiculoRequest): String = dbQuery {
+        // Em VeiculoRepository.kt
+        val clienteUuid = try {
+            UUID.fromString(request.clienteId)
+        } catch (e: IllegalArgumentException) {
+            // Caso a string enviada não seja um UUID válido (ex: "cliente-default-id")
+            UUID.fromString("00000000-0000-0000-0000-000000000000") // Ou UUID.randomUUID()
+        }
+
         val novoId = VeiculosTable.insertAndGetId {
-            it[clienteId] = UUID.fromString(request.clienteId)
+            it[clienteId] = clienteUuid
             it[placa] = request.placa.uppercase().trim()
             it[modelo] = request.modelo
             it[marca] = request.marca

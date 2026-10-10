@@ -1,6 +1,6 @@
 package com.mecaniq.repositories
 
-import com.mecaniq.backend.database.DatabaseFactory.dbQuery
+import com.mecaniq.database.DatabaseFactory.dbQuery
 import com.mecaniq.database.ClientesTable
 import com.mecaniq.models.ClienteDTO
 import com.mecaniq.models.CriarClienteRequest

@@ -1,15 +1,10 @@
 package com.mecaniq.database
 
+import com.mecaniq.database.tables.OficinasTable
+import kotlinx.datetime.LocalDateTime
 import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.ReferenceOption
-
-// 1. Tabela de Oficinas
-object OficinasTable : UUIDTable("oficinas") {
-    val nome = varchar("nome", 150)
-    val cnpj = varchar("cnpj", 20).uniqueIndex()
-    val telefone = varchar("telefone", 20)
-    val email = varchar("email", 100).uniqueIndex()
-}
+import org.jetbrains.exposed.sql.javatime.datetime
 
 // 2. Tabela de Clientes da Oficina
 object ClientesTable : UUIDTable("clientes") {
@@ -30,18 +25,6 @@ object VeiculosTable : UUIDTable("veiculos") {
     val kmAtual = integer("km_atual").default(0)
 }
 
-enum class StatusOS {
-    ABERTA,
-    EM_ANDAMENTO,
-    CONCLUIDA,
-    CANCELADA
-}
-
-enum class TipoItem {
-    PECA,
-    SERVICO
-}
-
 object OrdensServicoTable : UUIDTable("ordens_servio") {
     val oficinaId = reference(name = "oficina_id", foreign = OficinasTable, onDelete = ReferenceOption.CASCADE)
     val veiculoId = reference(name = "veiculo_id", foreign = VeiculosTable, onDelete = ReferenceOption.RESTRICT)
@@ -57,4 +40,16 @@ object ItensOSTable : UUIDTable("itens_os") {
     val tipo = enumerationByName("tipo", 20, TipoItem::class)
     val quantidade = integer("quantidade")
     val precoUnitario = decimal("preco_unitario", 10, 2)
+}
+
+enum class StatusOS {
+    ABERTA,
+    EM_ANDAMENTO,
+    CONCLUIDA,
+    CANCELADA
+}
+
+enum class TipoItem {
+    PECA,
+    SERVICO
 }

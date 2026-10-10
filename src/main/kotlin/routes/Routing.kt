@@ -1,5 +1,6 @@
 package com.mecaniq.routes
 
+import com.mecaniq.repositories.AuthRepository
 import com.mecaniq.repositories.ClienteRepository
 import com.mecaniq.repositories.OficinaRepository
 import com.mecaniq.repositories.OrdemServicoRepository
@@ -15,6 +16,7 @@ fun Application.configureRouting() {
     val veiculoRepository = VeiculoRepository()
     val ordemServicoRepository = OrdemServicoRepository()
     val alertaService = AlertaPreventivoService(veiculoRepository)
+    val authRepository = AuthRepository()
 
     routing {
         get("/") {
@@ -26,5 +28,6 @@ fun Application.configureRouting() {
         veiculoRoutes(veiculoRepository)
         ordemServicoRoutes(ordemServicoRepository)
         alertaRoutes(alertaService)
+        authRoutes(authRepository)
     }
 }

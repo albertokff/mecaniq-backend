@@ -1,6 +1,6 @@
 package com.mecaniq.repositories
 
-import com.mecaniq.backend.database.DatabaseFactory.dbQuery
+import com.mecaniq.database.DatabaseFactory.dbQuery
 import com.mecaniq.database.ItensOSTable
 import com.mecaniq.database.OrdensServicoTable
 import com.mecaniq.database.StatusOS

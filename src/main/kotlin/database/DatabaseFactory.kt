@@ -1,10 +1,7 @@
-package com.mecaniq.backend.database
+package com.mecaniq.database
 
-import com.mecaniq.database.ClientesTable
-import com.mecaniq.database.ItensOSTable
-import com.mecaniq.database.OficinasTable
-import com.mecaniq.database.OrdensServicoTable
-import com.mecaniq.database.VeiculosTable
+import com.mecaniq.database.tables.OficinasTable
+import com.mecaniq.database.tables.UsuariosTable
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +15,7 @@ object DatabaseFactory {
         val config = HikariConfig().apply {
             driverClassName = "org.h2.Driver"
             jdbcUrl = "jdbc:h2:mem:mecaniq_db;DB_CLOSE_DELAY=-1;"
-            maximumPoolSize = 3
+            maximumPoolSize = 10
             isAutoCommit = false
             transactionIsolation = "TRANSACTION_REPEATABLE_READ"
             validate()
@@ -33,7 +30,8 @@ object DatabaseFactory {
                 ClientesTable,
                 VeiculosTable,
                 ItensOSTable,
-                OrdensServicoTable
+                OrdensServicoTable,
+                UsuariosTable
             )
         }
     }

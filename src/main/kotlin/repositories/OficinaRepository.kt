@@ -1,7 +1,7 @@
 package com.mecaniq.repositories
 
-import com.mecaniq.backend.database.DatabaseFactory.dbQuery
-import com.mecaniq.database.OficinasTable
+import com.mecaniq.database.DatabaseFactory.dbQuery
+import com.mecaniq.database.tables.OficinasTable
 import com.mecaniq.models.CriarOficinaRequest
 import com.mecaniq.models.OficinaDTO
 import org.jetbrains.exposed.sql.insertAndGetId
@@ -15,7 +15,6 @@ class OficinaRepository {
                 nome = it[OficinasTable.nome],
                 cnpj = it[OficinasTable.cnpj],
                 telefone = it[OficinasTable.telefone],
-                email = it[OficinasTable.email]
             )
         }
     }
@@ -25,7 +24,6 @@ class OficinaRepository {
             it[nome] = request.nome
             it[cnpj] = request.cnpj.toString()
             it[telefone] = request.telefone
-            it[email] = request.email.toString()
         }
 
         novoId.value.toString()
